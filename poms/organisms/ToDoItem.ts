@@ -1,16 +1,17 @@
 import {expect, Locator, Page } from "@playwright/test";
+import {Button} from "../atoms/Button";
 
 export class ToDoItem {
     readonly container: Locator;
     readonly markDone: Locator;
     readonly itemText: Locator;
-    readonly removeBtn: Locator;
+    readonly removeBtn: Button;
 
     constructor(container: Locator) {
         this.container = container;
         this.markDone = container.getByTestId('todo-item-toggle');
         this.itemText = container.getByTestId('todo-item-label');
-        this.removeBtn = container.getByTestId('todo-item-button');
+        this.removeBtn = new Button(container.getByTestId('todo-item-button'));
     }
 
     async activate(): Promise<void> {

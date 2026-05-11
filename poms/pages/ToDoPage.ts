@@ -1,6 +1,7 @@
 import {expect, Locator, Page} from "@playwright/test";
 import {ToDoItem} from "../organisms/ToDoItem";
 import {faker} from "@faker-js/faker/locale/en";
+import { Button } from "../atoms/Button";
 
 export class ToDoPage {
     readonly page: Page;
@@ -9,10 +10,10 @@ export class ToDoPage {
     readonly main: Locator;
     readonly footer: Locator;
     readonly todoItemInput: Locator;
-    readonly allBtn: Locator;
-    readonly activeBtn: Locator;
-    readonly completedBtn: Locator;
-    readonly clearCompletedBtn: Locator;
+    readonly allBtn: Button;
+    readonly activeBtn: Button;
+    readonly completedBtn: Button;
+    readonly clearCompletedBtn: Button;
 
     constructor(page: Page) {
         this.page = page;
@@ -20,10 +21,10 @@ export class ToDoPage {
         this.main = page.getByTestId('main');
         this.footer = page.getByTestId('footer');
         this.todoItemInput = this.header.getByTestId('text-input');
-        this.allBtn = this.footer.locator('[href="#/"]');
-        this.activeBtn = this.footer.locator("[href$=active]");
-        this.completedBtn = this.footer.locator('.selected');
-        this.clearCompletedBtn = this.footer.locator('.clear-completed');
+        this.allBtn = new Button(this.footer.locator('[href="#/"]'));
+        this.activeBtn = new Button(this.footer.locator("[href$=active]"));
+        this.completedBtn = new Button(this.footer.locator('.selected'));
+        this.clearCompletedBtn = new Button(this.footer.locator('.clear-completed'));
     }
 
     getToDoItemByIndex(index: number): ToDoItem {
